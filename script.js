@@ -25,6 +25,7 @@ document.addEventListener("keydown", Mouvement); // Écoute l'événement de pre
 
 
 function Init() {
+
   // Caractéristiques du serpent
   serpent = [ 
     { x: 150, y: 150 },
@@ -68,4 +69,20 @@ function dessinerNourriture() {
   ctx.strokeStyle = COULEUR_BORDURE_NOURRITURE; // Couleur de la bordure de la nourriture
   ctx.fillRect(coordonneNourritureX, coordonneNourritureY, 10, 10); // Remplit la nourriture
   ctx.strokeRect(coordonneNourritureX, coordonneNourritureY, 10, 10); // Dessine la bordure
+}
+
+// Génère un nombre aléatoire
+function randomN(min, max) { 
+  return Math.round((Math.random() * (max - min) + min) / 10) * 10; // Retourne un nombre aléatoire arrondi
+}
+
+// Place la nourriture aléatoirement
+function Nourriture() { 
+  
+  coordonneNourritureX = randomN(0, canvasJeu.width - 10); // Positionne la nourriture sur l'axe X
+  coordonneNourritureY = randomN(0, canvasJeu.height - 10); // Positionne la nourriture sur l'axe Y
+  serpent.forEach(function estNourritureSurSerpent(partie) { // Vérifie si la nourriture a été mange par le serpent
+      const nourritureSurSerpent = partie.x == coordonneNourritureX && partie.y == coordonneNourritureY; // Vérifie la collision
+      if (nourritureSurSerpent) Nourriture(); // Si le serpent a mange la nourriture , relance la fonction
+  });
 }
