@@ -15,13 +15,16 @@ let coordonneNourritureY; // Coordonnée Y de la nourriture
 let deplacementX; // Vitesse horizontale
 let deplacementY; // Vitesse verticale
 let jeuActif = true; // Variable pour vérifier si le jeu est actif
-Init(); // Initialiser le jeu
+
 
 // Récupérer l'élément canvas
 const canvasJeu = document.getElementById("gameCanvas"); // Récupère le canvas du jeu
 // Retourne un contexte de dessin en deux dimensions
 const ctx = canvasJeu.getContext("2d"); // Contexte 2D pour dessiner sur le canvas
 document.addEventListener("keydown", Mouvement); // Écoute l'événement de pression de touche
+
+dessinerSerpent()
+Init();// Initialiser le jeu
 
 
 function Init() {
@@ -81,8 +84,59 @@ function Nourriture() {
   
   coordonneNourritureX = randomN(0, canvasJeu.width - 10); // Positionne la nourriture sur l'axe X
   coordonneNourritureY = randomN(0, canvasJeu.height - 10); // Positionne la nourriture sur l'axe Y
+
   serpent.forEach(function estNourritureSurSerpent(partie) { // Vérifie si la nourriture a été mange par le serpent
       const nourritureSurSerpent = partie.x == coordonneNourritureX && partie.y == coordonneNourritureY; // Vérifie la collision
       if (nourritureSurSerpent) Nourriture(); // Si le serpent a mange la nourriture , relance la fonction
   });
+
+}
+
+// Vérifie si le jeu est terminé
+function GameOver() { 
+  
+  // Teste sur chaque segment du serpent
+  for (let i = 4; i < serpent.length; i++) 
+    {
+      if (serpent[i].x === serpent[0].x && serpent[i].y === serpent[0].y) return true // Vérifie si le serpent se mord la queue
+    }
+    
+  const MUR_GAUCHE = serpent[0].x < 0; // Vérifie si le serpent touche le mur gauche
+  const MUR_DROIT = serpent[0].x > canvasJeu.width - 10; // Vérifie si le serpent touche le mur droit
+  const MUR_HAUT = serpent[0].y < 0; // Vérifie si le serpent touche le mur haut
+  const MUR_BAS = serpent[0].y > canvasJeu.height - 10; // Vérifie si le serpent touche le mur bas
+
+  return MUR_HAUT || MUR_GAUCHE|| MUR_DROIT || MUR_BAS; // Retourne true si le serpent touche un mur
+}
+
+// Affiche l'écran de défaite
+function afficherEcranDefaite() {
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; // Fond noir transparent
+  ctx.fillRect(0, 0, canvasJeu.width, canvasJeu.height); // Recouvre tout le canvas
+  ctx.fillStyle = 'white'; // Couleur du texte
+  ctx.font = '30px Arial'; // Police et taille du texte
+  ctx.textAlign = 'center'; // Alignement du texte
+  ctx.fillText('Vous avez perdu!', canvasJeu.width / 2, canvasJeu.height / 2 - 10); // Affiche le message
+  ctx.font = '20px Arial'; // Taille du texte pour le score
+  ctx.fillText('Score: ' + score, canvasJeu.width / 2, canvasJeu.height / 2 + 20); // Affiche le score
+  jeuActif = false; // Met à jour l'état du jeu
+}
+
+// Fonction principale du jeu
+function jeu() { 
+  
+  if (GameOver()) { // Si le jeu est terminé
+      afficherEcranDefaite(); // Affiche l'écran de défaite
+      return; // Quitte la fonction
+  }
+
+  setTimeout(
+    function onTick() { 
+      direction = false; // Réinitialise la direction
+      dessinerNourriture(); // Dessine la nourriture
+      avancerSerpent(); // Avance le serpent
+      dessinerSerpent(); // Dessine le serpent
+      jeu(); // Rappelle la fonction pour continuer le jeu
+    },
+    VITESSE_JEU); // Utilise la vitesse du jeu pour le délai
 }
