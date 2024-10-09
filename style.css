@@ -9,22 +9,35 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: hsl(0, 8%, 83%); /* Couleur de fond */
-    font-family: Arial, sans-serif; /* Police de caractères */
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #282c34;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
 }
+
 #score {
-    font-size: 24px; /* Taille de la police du score */
-    margin: 20px; /* Marge autour du score */
+    font-size: 24px;
+    margin-bottom: 20px;
 }
+
 .button {
-    padding: 10px 20px; /* Espacement interne du bouton */
-    font-size: 16px; /* Taille de la police du bouton */
-    margin-bottom: 20px; /* Marge en bas du bouton */
-    cursor: pointer; /* Curseur en forme de main */
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #61dafb;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
-canvas {
-    border: 2px solid black; /* Bordure autour du canvas */
-    background-color: #9FE855; /* Couleur de fond du canvas */
-    width: 800px;
-    height: 400px;
+
+.button:hover {
+    background-color: #21a1f1;
+}
+
+#gameCanvas {
+    border: 2px solid #61dafb;
+    background-color: #ffffff;
 }
