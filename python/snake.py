@@ -3,7 +3,6 @@ import pygame
 import time
 import random
 
-
 # Couleurs
 BLANC = (255, 255, 255)
 NOIR = (0, 0, 0)
@@ -14,6 +13,9 @@ BLEU = (50, 153, 213)
 # Dimensions de la fenêtre
 LARGUR = 600
 HAUTEUR = 400
+
+# Initialiser Pygame
+pygame.init()
 
 # Créer la fenêtre
 fenetre = pygame.display.set_mode((LARGUR, HAUTEUR))
@@ -27,8 +29,9 @@ VITESSE = 15
 TAILLE_SEGMENT = 10
 
 # Police pour le score
-font_style = pygame.font.SysFont("arial", 25)
-score_font = pygame.font.SysFont("arila black", 35)
+FONT_STYLE = pygame.font.SysFont("arial", 25)
+FONT_SCORE = pygame.font.SysFont("bahnschrift", 35)
+
 
 # Dessine le serpent
 def DESSINER_SERPENT(TAILLE_SEGMENT, serpent):
@@ -37,9 +40,10 @@ def DESSINER_SERPENT(TAILLE_SEGMENT, serpent):
 
 # Afficher le score     
 def AFFICHER_SCORE(score):
-    valeur = score_font.render("Score: " + str(score), True, NOIR)
+    valeur = FONT_SCORE.render("Score : " + str(score), True, NOIR)
     fenetre.blit(valeur, [0, 0])
 
+# Afficher un message
 def MESSAGE(msg, couleur):
-    mesg = font_style.render(msg, True, couleur)
+    mesg = FONT_STYLE.render(msg, True, couleur)
     fenetre.blit(mesg, [LARGUR / 6, HAUTEUR / 3])
