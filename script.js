@@ -7,7 +7,7 @@ const COULEUR_NOURRITURE = 'red'; // Couleur de la nourriture
 const COULEUR_BORDURE_NOURRITURE = 'darkred'; // Couleur de la bordure de la nourriture
 
 let serpent; // Variable du serpent
-let score; // Variable du Score
+let score; // Variable du score
 let direction; // Direction du serpent
 let coordonneNourritureX; // Coordonnée X de la nourriture
 let coordonneNourritureY; // Coordonnée Y de la nourriture
@@ -17,7 +17,9 @@ let jeuActif = true; // Variable pour vérifier si le jeu est actif
 
 const canvasJeu = document.getElementById("gameCanvas"); // Récupère le canvas du jeu
 const ctx = canvasJeu.getContext("2d"); // Contexte 2D pour dessiner sur le canvas
+
 document.addEventListener("keydown", Mouvement); // Écoute l'événement de pression de touche
+document.getElementById('btn-recommencer').addEventListener('click', Init); // Bouton recommencer
 
 Init(); // Initialiser le jeu
 
@@ -36,8 +38,10 @@ function Init() {
     coordonneNourritureY = 0; // Coordonnée Y de la nourriture
     deplacementX = 10; // Vitesse horizontale initiale
     deplacementY = 0; // Vitesse verticale initiale
+    jeuActif = true; // Réactive le jeu
 
     document.getElementById('score').innerHTML = 'Score: ' + score; // Afficher le score
+    document.getElementById('ecran-defaite').classList.add('cacher'); // Masquer l'écran de défaite
 
     dessinerSerpent(); // Dessiner le serpent au démarrage
     Nourriture(); // Placer la nourriture
@@ -91,15 +95,15 @@ function GameOver() {
 }
 
 function afficherEcranDefaite() {
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; // Fond noir transparent
-  ctx.fillRect(0, 0, canvasJeu.width, canvasJeu.height); // Recouvre tout le canvas
-  ctx.fillStyle = 'white'; // Couleur du texte
-  ctx.font = '30px Arial'; // Police et taille du texte
-      ctx.textAlign = 'center'; // Alignement du texte
-      ctx.fillText('Vous avez perdu!', canvasJeu.width / 2, canvasJeu.height / 2 - 10); // Affiche le message
-      ctx.font = '20px Arial'; // Taille du texte pour le score
-      ctx.fillText('Score: ' + score, canvasJeu.width / 2, canvasJeu.height / 2 + 20); // Affiche le score
-      jeuActif = false; // Met à jour l'état du jeu
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; // Fond noir transparent
+    ctx.fillRect(0, 0, canvasJeu.width, canvasJeu.height); // Recouvre tout le canvas
+    ctx.fillStyle = 'white'; // Couleur du texte
+    ctx.font = '30px Arial'; // Police et taille du texte
+    ctx.textAlign = 'center'; // Alignement du texte
+    ctx.fillText('Vous avez perdu!', canvasJeu.width / 2, canvasJeu.height / 2 - 10); // Affiche le message
+    ctx.font = '20px Arial'; // Taille du texte pour le score
+    ctx.fillText('Score: ' + score, canvasJeu.width / 2, canvasJeu.height / 2 + 20); // Affiche le score
+    jeuActif = false; // Met à jour l'état du jeu
 }
 
 function jeu() {
@@ -134,7 +138,7 @@ function avancerSerpent() {
 
     if (aMange) {
         score += 10; // Augmente le score de 10
-        document.getElementById('score').innerHTML = score; // Met à jour l'affichage du score
+        document.getElementById('score').innerHTML = 'Score: ' + score; // Met à jour l'affichage du score
         Nourriture(); // Place une nouvelle nourriture
     } else {
         serpent.pop(); // Retire le dernier segment du serpent si aucune nourriture n'est mangée
