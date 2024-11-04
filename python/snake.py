@@ -48,6 +48,13 @@ def MESSAGE(msg, couleur):
     mesg = FONT_STYLE.render(msg, True, couleur)
     fenetre.blit(mesg, [LARGUR / 6, HAUTEUR / 3])
 
+# Dessiner le bouton "Recommencer"
+def DESSINER_BOUTON_RECOMMENCER():
+    bouton_rect = pygame.Rect(LARGUR / 3, HAUTEUR / 2 + 50, LARGUR / 3, 50)
+    pygame.draw.rect(fenetre, BLEU, bouton_rect)
+    MESSAGE("Recommencer", NOIR)
+    return bouton_rect
+
 def jeu():
     # Position initiale du serpent
     x1 = LARGUR / 2
@@ -70,10 +77,14 @@ def jeu():
 
     # Boucle principale du jeu
     jeu_en_cours = True
+
     while jeu_en_cours:
+
         for event in pygame.event.get():
+
             if event.type == pygame.QUIT:
                 jeu_en_cours = False
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     x1_change = -TAILLE_SEGMENT
@@ -102,6 +113,7 @@ def jeu():
         serpent_tete.append(x1)
         serpent_tete.append(y1)
         serpent.append(serpent_tete)
+        
         if len(serpent) > longueur_serpent:
             del serpent[0]
 
@@ -123,11 +135,22 @@ def jeu():
 
         horloge.tick(VITESSE)  # Contrôler la vitesse du jeu
 
-    # Afficher le message de fin de jeu
+    # Afficher le message de fin de jeu et le bouton
     fenetre.fill(BLANC)
     MESSAGE("Game Over! Votre score: " + str(score), ROUGE)
+    bouton_rect = DESSINER_BOUTON_RECOMMENCER()
     pygame.display.update()
-    time.sleep(2)  # Attendre 2 secondes avant de fermer
+
+    # Attendre que l'utilisateur clique sur "Recommencer"
+    en_attente = True
+    while en_attente:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                en_attente = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if bouton_rect.collidepoint(event.pos):
+                    jeu()  # Redémarrer le jeu
+
 
 # Démarrer le jeu
 jeu()
