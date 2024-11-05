@@ -16,6 +16,7 @@ body {
     background-color: #282c34;
     font-family: 'Antic Slab', sans-serif; /* Utilise la police Antic Slab */
     color: #ffffff;
+    text-align: center;
 }
 
 h1 {
@@ -26,6 +27,41 @@ h1 {
 #score {
     font-size: 24px;
     margin-bottom: 20px;
+}
+
+#jeu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #61dafb; /* Couleur de la bordure du conteneur du jeu */
+    background-color: #ffffff; /* Couleur de fond du jeu */
+    padding: 10px;
+}
+
+#gameCanvas {
+    background-color: #ffffff; /* Couleur de fond du canvas */
+    height: 50vh;
+    width: 50vw;
+    border: 2px solid #61dafb;
+    margin: 10px;
+}
+
+#ecran-defaite {
+    display: none; /* Masqué par défaut */
+    background-color: rgba(0, 0, 0, 0.7); /* Fond noir semi-transparent */
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+#ecran-defaite p {
+    margin: 10px 0;
+}
+
+#scoreFinal {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .button {
@@ -41,22 +77,6 @@ h1 {
 
 .button:hover {
     background-color: #21a1f1; /* Couleur au survol du bouton */
-}
-
-#jeu-container {
-    border: 2px solid #61dafb; /* Couleur de la bordure du conteneur du jeu */
-    background-color: #ffffff; /* Couleur de fond du jeu */
-}
-
-#gameCanvas {
-    height:50vh ;
-    width: 50vw;
-    background-color: #ffffff; /* Couleur de fond du canvas */
-}
-
-#ecran-defaite {
-    text-align: center;
-    margin-top: 20px;
 }
 
 .cacher {
