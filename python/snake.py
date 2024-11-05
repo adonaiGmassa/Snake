@@ -48,6 +48,29 @@ def MESSAGE(msg, couleur):
     mesg = FONT_STYLE.render(msg, True, couleur)
     fenetre.blit(mesg, [LARGUR / 6, HAUTEUR / 3])
 
+# Dessiner le bouton "Recommencer"
+def DESSINER_BOUTON_RECOMMENCER():
+    bouton_rect = pygame.Rect(LARGUR / 3, HAUTEUR / 2 + 50, LARGUR / 3, 50)
+    
+    # Gestion de la couleur du bouton en fonction du survol
+    souris_pos = pygame.mouse.get_pos()
+    if bouton_rect.collidepoint(souris_pos):
+        couleur_bouton = (100, 150, 255)  # Couleur plus claire au survol
+    else:
+        couleur_bouton = BLEU
+    
+    # Dessiner le bouton
+    pygame.draw.rect(fenetre, couleur_bouton, bouton_rect)
+    pygame.draw.rect(fenetre, NOIR, bouton_rect, 2)  # Bordure noire autour du bouton
+    
+    # Afficher le texte centré sur le bouton
+    texte = FONT_STYLE.render("Recommencer", True, NOIR)
+    texte_rect = texte.get_rect(center=bouton_rect.center)  # Centre le texte
+    fenetre.blit(texte, texte_rect)
+
+    return bouton_rect
+
+
 def jeu():
     # Position initiale du serpent
     x1 = LARGUR / 2
@@ -70,10 +93,14 @@ def jeu():
 
     # Boucle principale du jeu
     jeu_en_cours = True
+
     while jeu_en_cours:
+
         for event in pygame.event.get():
+
             if event.type == pygame.QUIT:
                 jeu_en_cours = False
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     x1_change = -TAILLE_SEGMENT
@@ -102,6 +129,7 @@ def jeu():
         serpent_tete.append(x1)
         serpent_tete.append(y1)
         serpent.append(serpent_tete)
+
         if len(serpent) > longueur_serpent:
             del serpent[0]
 
@@ -123,11 +151,22 @@ def jeu():
 
         horloge.tick(VITESSE)  # Contrôler la vitesse du jeu
 
-    # Afficher le message de fin de jeu
+    # Afficher le message de fin de jeu et le bouton
     fenetre.fill(BLANC)
-    MESSAGE("Game Over! Votre score: " + str(score), ROUGE)
+    MESSAGE("Game Over ! Votre score: " + str(score), ROUGE)
+    bouton_rect = DESSINER_BOUTON_RECOMMENCER()
     pygame.display.update()
-    time.sleep(2)  # Attendre 2 secondes avant de fermer
+
+    # Attendre que l'utilisateur clique sur "Recommencer"
+    en_attente = True
+    while en_attente:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                en_attente = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if bouton_rect.collidepoint(event.pos):
+                    jeu()  # Redémarrer le jeu
+
 
 # Démarrer le jeu
 jeu()
