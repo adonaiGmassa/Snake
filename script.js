@@ -18,6 +18,10 @@ let jeuActif = true; // Variable pour vérifier si le jeu est actif
 const canvasJeu = document.getElementById("gameCanvas"); // Récupère le canvas du jeu
 const ctx = canvasJeu.getContext("2d"); // Contexte 2D pour dessiner sur le canvas
 
+// Définir les dimensions du canvas
+canvasJeu.width = 500;
+canvasJeu.height = 500;
+
 document.addEventListener("keydown", Mouvement); // Écoute l'événement de pression de touche
 document.getElementById('btn-recommencer').addEventListener('click', Init); // Bouton recommencer
 
@@ -146,27 +150,28 @@ function avancerSerpent() {
 }
 
 function Mouvement(event) {
-    const GAUCHE = 37; // Variable pour la flèche gauche
-    const DROITE = 39; // Variable pour la flèche droite
-    const HAUT = 38; // Variable pour la flèche haut
-    const BAS = 40; // Variable pour la flèche bas
-
     if (direction || !jeuActif) return; // Si le serpent est déjà en train de changer de direction ou si le jeu est arrêté
     direction = true; // Indique que la direction a été changée
 
-    const TOUCHE_Pressee = event.keyCode; // Récupère le code de la touche pressée
+    const TOUCHE_Pressee = event.key; // Utilisation de event.key pour capturer la touche pressée
 
-    if (TOUCHE_Pressee === HAUT && deplacementY !== 10) {
+    if (TOUCHE_Pressee === "ArrowUp" && deplacementY !== 10) {
         deplacementX = 0; 
         deplacementY = -10; // Change la direction vers le haut
-    } else if (TOUCHE_Pressee === GAUCHE && deplacementX !== 10) {
+    } else if (TOUCHE_Pressee === "ArrowLeft" && deplacementX !== 10) {
         deplacementX = -10; 
         deplacementY = 0; // Change la direction vers la gauche
-    } else if (TOUCHE_Pressee === DROITE && deplacementX !== -10) {
+    } else if (TOUCHE_Pressee === "ArrowRight" && deplacementX !== -10) {
         deplacementX = 10; 
         deplacementY = 0; // Change la direction vers la droite
-    } else if (TOUCHE_Pressee === BAS && deplacementY !== -10) {
+    } else if (TOUCHE_Pressee === "ArrowDown" && deplacementY !== -10) {
         deplacementX = 0; 
         deplacementY = 10; // Change la direction vers le bas
     }
+}
+
+// Fonction pour redémarrer le jeu après une défaite
+function redemarrerJeu() {
+    document.getElementById('ecran-defaite').classList.add('cacher'); // Masquer l'écran de défaite
+    Init(); // Réinitialiser le jeu
 }
