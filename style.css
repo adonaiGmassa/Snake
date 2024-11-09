@@ -1,84 +1,103 @@
+/* Définition de la police personnalisée "Antic Slab" */
 @font-face {
-    font-family: 'Antic Slab';
+    font-family: 'Antic Slab'; /* Nom de la police personnalisée */
     font-style: normal;
-    font-weight: 400;
+    font-weight: 400; /* Poids normal */
+    /* URL vers la police hébergée sur Google Fonts */
     src: url(https://fonts.gstatic.com/s/anticslab/v16/bWt97fPFfRzkCa9Jlp6IacVcXA.woff2) format('woff2');
+    /* Plage de caractères prise en charge par la police */
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* Style global du corps de la page */
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #282c34;
-    font-family: 'Antic Slab', sans-serif; /* Utilise la police Antic Slab */
-    color: #ffffff;
-    text-align: center;
+    display: flex; /* Utilisation de Flexbox pour centrer les éléments */
+    flex-direction: column; /* Empile les éléments du haut vers le bas */
+    align-items: center; /* Centrer les éléments horizontalement */
+    justify-content: center; /* Centrer les éléments verticalement */
+    height: 100vh; /* Utilise toute la hauteur de la fenêtre */
+    margin: 0; /* Supprime les marges par défaut */
+    background-color: #282c34; /* Couleur de fond sombre */
+    font-family: 'Antic Slab', sans-serif; /* Application de la police personnalisée */
+    color: #ffffff; /* Couleur du texte (blanc) */
+    text-align: center; /* Centrer le texte */
 }
 
+/* Style du titre (h1) */
 h1 {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Espacement sous le titre */
     font-size: 36px; /* Taille de la police pour le titre */
+    font-weight: bold; /* Police en gras */
+    color: #61dafb; /* Couleur bleue pour le titre */
 }
 
+/* Style du score affiché */
 #score {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 24px; /* Taille de la police pour le score */
+    margin-bottom: 20px; /* Espacement sous le score */
+    color: #ffffff; /* Couleur du texte (blanc) */
 }
 
+/* Conteneur du jeu */
 #jeu-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #61dafb; /* Couleur de la bordure du conteneur du jeu */
-    background-color: #ffffff; /* Couleur de fond du jeu */
-    padding: 10px;
+    display: flex; /* Utilisation de Flexbox pour centrer le jeu */
+    justify-content: center; /* Centrer le jeu horizontalement */
+    align-items: center; /* Centrer le jeu verticalement */
+    border: 2px solid #61dafb; /* Bordure bleu clair autour du conteneur */
+    background-color: #ffffff; /* Fond blanc du conteneur */
+    padding: 10px; /* Espacement interne du conteneur */
+    border-radius: 10px; /* Bordures arrondies */
 }
 
+/* Style du canvas de jeu */
 #gameCanvas {
-    background-color: #ffffff; /* Couleur de fond du canvas */
-    height: 50vh;
-    width: 50vw;
-    border: 2px solid #61dafb;
-    margin: 10px;
+    background-color: #ffffff; /* Couleur de fond du canvas (blanc) */
+    height: 50vh; /* Hauteur du canvas égale à 50% de la hauteur de la fenêtre */
+    width: 50vw; /* Largeur du canvas égale à 50% de la largeur de la fenêtre */
+    border: 2px solid #61dafb; /* Bordure bleu clair autour du canvas */
+    margin: 10px; /* Marges autour du canvas */
 }
 
+/* Écran de défaite, masqué par défaut */
 #ecran-defaite {
-    display: none; /* Masqué par défaut */
+    display: none; /* Masquer l'écran de défaite au départ */
     background-color: rgba(0, 0, 0, 0.7); /* Fond noir semi-transparent */
-    color: white;
-    padding: 30px;
-    border-radius: 10px;
-    margin-top: 20px;
+    color: white; /* Texte en blanc */
+    padding: 30px; /* Espacement interne de l'écran de défaite */
+    border-radius: 10px; /* Bordures arrondies */
+    margin-top: 20px; /* Espacement au-dessus de l'écran de défaite */
+    text-align: center; /* Centrer le texte dans l'écran de défaite */
 }
 
+/* Style des paragraphes dans l'écran de défaite */
 #ecran-defaite p {
-    margin: 10px 0;
+    margin: 10px 0; /* Espacement vertical des paragraphes */
 }
 
+/* Style du texte de score final dans l'écran de défaite */
 #scoreFinal {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 20px; /* Taille de la police pour le score final */
+    font-weight: bold; /* Texte en gras */
 }
 
+/* Style des boutons */
 .button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #61dafb; /* Couleur du bouton */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 10px 20px; /* Espacement interne du bouton */
+    font-size: 16px; /* Taille de la police du bouton */
+    color: #ffffff; /* Texte du bouton en blanc */
+    background-color: #61dafb; /* Couleur de fond bleu clair */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Bordures arrondies */
+    cursor: pointer; /* Curseur en forme de main pour indiquer qu'il est cliquable */
+    transition: background-color 0.3s ease; /* Transition douce pour la couleur de fond */
 }
 
+/* Style au survol des boutons */
 .button:hover {
-    background-color: #21a1f1; /* Couleur au survol du bouton */
+    background-color: #21a1f1; /* Couleur du bouton lorsqu'il est survolé (bleu plus foncé) */
 }
 
+/* Classe pour masquer un élément (utilisée pour l'écran de défaite) */
 .cacher {
-    display: none; /* Masque l'écran de défaite par défaut */
+    display: none; /* Masquer l'élément */
 }
