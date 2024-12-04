@@ -142,19 +142,24 @@ function placerNourriture() { // Place la nourriture de façon aléatoire
 }
 
 function finDeJeu() {
-    for (let i = 4; i < serpent.length; i++) {
-        if (serpent[i].x === serpent[0].x && serpent[i].y === serpent[0].y) 
-            {
-                finJ = true
-            }
+    // Vérifie si la tête du serpent entre en collision avec une partie de son corps
+    for (let i = 4; i < serpent.length; i++) { // Commence à partir de la 5ème partie du serpent
+        if (serpent[i].x === serpent[0].x && serpent[i].y === serpent[0].y) { // Compare chaque partie avec la tête
+            finJ = true; // Si une collision est détectée, on marque la fin du jeu
+        }
     }
 
-    const murG = serpent[0].x < 0;
-    const murD = serpent[0].x > canvasJeu.width - 10;
-    const murH = serpent[0].y < 0;
-    const murB = serpent[0].y > canvasJeu.height - 10;
+    // Vérifie si la tête du serpent touche les bords du terrain (mur)
+    const murG = serpent[0].x < 0; // Vérifie si la tête est à gauche du terrain
+    const murD = serpent[0].x > canvasJeu.width - 10; // Vérifie si la tête est à droite du terrain
+    const murH = serpent[0].y < 0; // Vérifie si la tête est en haut du terrain
+    const murB = serpent[0].y > canvasJeu.height - 10; // Vérifie si la tête est en bas du terrain
 
-    return murB || murH || murD || murG;
+    // Si l'une des conditions est vraie, la partie est finie
+    if( murB || murH || murD || murG)
+        {
+            finJ = true;
+        }
 }
 
 function jeu() {
