@@ -17,6 +17,8 @@ let nourritureY;
 let dx;
 let dy;
 
+let finJ = false;
+
 // Récupérer l'élément canvas
 const canvasJeu = document.getElementById("gameCanvas");
 // Retourner un contexte de dessin en deux dimensions
@@ -32,10 +34,10 @@ function init() {
         { x: 120, y: 150 },
         { x: 110, y: 150 }
     ];
-    
+
     // CARACTÉRISTIQUES DU JEU
     score = 0;
-    direction = false; // Lorsque true, le serpent change de direction
+    direction = false; // Quand false, on permet au serpent de bouger
     nourritureX = 0; // Coordonnée nourriture en X
     nourritureY = 0; // Coordonnée nourriture en Y
     dx = 10; // Vitesse horizontale
@@ -44,7 +46,7 @@ function init() {
     document.getElementById('score').innerHTML = 'Score: ' + score;
 
     placerNourriture();
-    jeu();
+    jeu(); // Démarre le jeu immédiatement après l'initialisation
 }
 
 function dessinerSerpent() { // Dessine le serpent
@@ -141,7 +143,10 @@ function placerNourriture() { // Place la nourriture de façon aléatoire
 
 function finDeJeu() {
     for (let i = 4; i < serpent.length; i++) {
-        if (serpent[i].x === serpent[0].x && serpent[i].y === serpent[0].y) return true;
+        if (serpent[i].x === serpent[0].x && serpent[i].y === serpent[0].y) 
+            {
+                finJ = true
+            }
     }
 
     const murG = serpent[0].x < 0;
@@ -153,7 +158,8 @@ function finDeJeu() {
 }
 
 function jeu() {
-    if (finDeJeu()) {
+    finDeJeu
+    if (finDeJeu(true)) {
         alert("Vous avez perdu !");
         const boutonRedemarrer = document.getElementById('Button');
         boutonRedemarrer.style.display = 'block';
