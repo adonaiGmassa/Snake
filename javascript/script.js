@@ -163,23 +163,28 @@ function finDeJeu() {
 }
 
 function jeu() {
-    finDeJeu
-    if (finDeJeu(true)) {
-        alert("Vous avez perdu !");
-        const boutonRedemarrer = document.getElementById('Button');
-        boutonRedemarrer.style.display = 'block';
-        return;
+    // Vérifie si le jeu est terminé en appelant la fonction finDeJeu()
+    finDeJeu();
+
+    // Si la variable finJ est égale à true, cela signifie que le jeu est terminé
+    if (finJ == true) {
+        alert("Vous avez perdu !"); // Affiche une alerte indiquant que le joueur a perdu
+        const boutonRedemarrer = document.getElementById('Button'); // Récupère le bouton de redémarrage
+        boutonRedemarrer.style.display = 'block'; // Affiche le bouton de redémarrage pour permettre au joueur de recommencer
+        return; // Interrompt l'exécution de la fonction et donc arrête le jeu
     }
 
+    // Si le jeu n'est pas terminé, on planifie l'exécution de la fonction suivante pour mettre à jour l'état du jeu
     setTimeout(function onTick() {
-        direction = false;
-        effacerCanvas();
-        dessinerNourriture();
-        avancerSerpent();
-        dessinerSerpent();
-        jeu();
-    }, VITESSE_JEU);
+        direction = false; // Réinitialise la direction pour permettre au serpent de changer de direction sur le prochain mouvement
+        effacerCanvas(); // Efface le canvas pour redessiner les éléments (fond, serpent, nourriture)
+        dessinerNourriture(); // Redessine la nourriture à sa nouvelle position
+        avancerSerpent(); // Déplace le serpent selon la direction actuelle
+        dessinerSerpent(); // Redessine le serpent après son déplacement
+        jeu(); // Appelle récursivement la fonction jeu() pour continuer le jeu
+    }, VITESSE_JEU); // Attends un délai (VITESSE_JEU) avant de relancer l'animation du jeu
 }
+
 
 function redemarrerJeu() {
     const boutonRedemarrer = document.getElementById('Button');
