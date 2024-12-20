@@ -133,12 +133,12 @@ function aleatoire(min, max) {
 }
 
 function placerNourriture() { // Place la nourriture de façon aléatoire
-    nourritureX = aleatoire(0, canvasJeu.width - 10); // Place la nourriture sur l'axe des X
-    nourritureY = aleatoire(0, canvasJeu.height - 10); // Place la nourriture sur l'axe des Y
-    serpent.forEach(function estNourritureSurSerpent(partie) { // Empêche la nourriture et le serpent d'être au même endroit
-        const nourritureSurSerpent = partie.x === nourritureX && partie.y === nourritureY;
-        if (nourritureSurSerpent) placerNourriture();
-    });
+    let validPosition = false;
+    while (!validPosition) {
+        nourritureX = aleatoire(0, canvasJeu.width - 10); // Place la nourriture sur l'axe des X
+        nourritureY = aleatoire(0, canvasJeu.height - 10); // Place la nourriture sur l'axe des Y
+        validPosition = !serpent.some(partie => partie.x === nourritureX && partie.y === nourritureY);
+    }
 }
 
 function finDeJeu() {
@@ -156,10 +156,9 @@ function finDeJeu() {
     const murB = serpent[0].y > canvasJeu.height - 10; // Vérifie si la tête est en bas du terrain
 
     // Si l'une des conditions est vraie, la partie est finie
-    if( murB || murH || murD || murG)
-        {
-            finJ = true;
-        }
+    if( murB || murH || murD || murG) {
+        finJ = true;
+    }
 }
 
 function jeu() {
@@ -185,11 +184,8 @@ function jeu() {
     }, VITESSE_JEU); // Attends un délai (VITESSE_JEU) avant de relancer l'animation du jeu
 }
 
-
 function redemarrerJeu() {
     const boutonRedemarrer = document.getElementById('Button');
-    if (!boutonRedemarrer) {
-        boutonRedemarrer.style.display = 'none';
-    }
+    boutonRedemarrer.style.display = 'none'; // Cache le bouton de redémarrage
     init();
 }
